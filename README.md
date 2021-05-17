@@ -13,13 +13,27 @@ With respect to Project_status and Task_status, these have the options of ongoin
 Task_details is optional because naming a task " clean the nozzle" is self evident, but when running say a extruder temperature test on the PLA filament, its useful to add details like temperature range currently considered, because you will often start off low, then high, and split the difference around the manufacturers quoted temp ranges due to things like moisture and room temperature affecting the behaviour of the material.
 
 
-
 ## Use Examples
 
 ## Code Flowcharts
 
 ## Code Documentation
 
+### Setup
+! Todo, this should describe what to install / to run in order to get the app to work.
+! If term permits, shell script to install necessary packages?
+! A shell script would be especially advantages as i could input optional things like remote host through it but use a default local host otherwise without
+! users needing to mess with terminal or my python files.
+
+## Dependencies/ Languages
+- Python3.7
+- Flask
+- flask_sqlalchemy
+- flask_wtf
+- flaskform
+- html
+- sql
+- googlecloud or AWS sql for database hosting ( alternatively host locally with sqlite)
 
 
 
