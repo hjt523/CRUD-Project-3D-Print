@@ -25,6 +25,7 @@ SO in terms of design, there are 6 html pages:
 
 Could potentially merge Add project and Task into one add page with a dropdown option to which it adds to.
 
+The code, HTML templates, and Testing code should be kept in seperate folders.
 ## Use Examples
 
 ## Code Flowcharts
