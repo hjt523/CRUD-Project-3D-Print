@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <h1> About </h1>
+
+    <p> 
+        This App is part of my QA Academy Training course, the purpose of the task is to implement the skills learnt so far in a CRUD application ( Create,Read,Update,Delete) 
+        using Flask. I chose to build a 3D print status tracker both to support my personal hobby, and because a 3D print project can be decomposed into several non
+        unique tasks that often get repeated across projects, ideal for a many-to-many database relationship required of the project. 
+    </p>
+
+    <br>
+
+    <form action= "{{url_for("current_projects")}}">
+        <td><input type="submit" value= "View Current Projects"></td>
+    </form>
+
+    <br>
+
+    <form action= "{{url_for("add_project")}}">
+        <td><input type="submit" value= "Add New Project!" ></input></td>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <a href=https://github.com/hjt523/CRUD-Project-3D-Print> For further documentation and access to the source code, visit my Github page!
+  </a>
+
+
+{% endblock body %}
