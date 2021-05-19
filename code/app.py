@@ -17,23 +17,51 @@ def index():
 
 @app.route("/current_projects") # A list of ongoing 3d Prints
 def current_projects():
+    projects = project.query.all()
+    
+    return render_template("current_projects.html", projects = projects)
 
-    return ""
-@app.route("/add_project") # Add a new 3d print
+@app.route("/add_project", methods =["GET","POST"]) # Add a new 3d print
 def add_project():
+    error = ""
+    form = projadd()
+    if request.method == "POST":
+        Task = form.name.data
+        desc = form.description.data 
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            nproj = project(name=Task,description = desc, staatus = False)
+            db.session.add(nproj)
+            db.session.commit()
+            return redirect(url_for('current_projects'))
+    return render_template("add_project.html", form = form, message = error)
+@app.route("/deleteproj/<int:projid>")
+def delete(projid):
+    todel = project.query.get(projid)
+    db.session.delete(todel)
+    db.session.commit()
+    
+    return redirect( url_for('current_projects'))
 
-    return ""
-'''
-@app.route("add_task") # Add a new task for a print / several prints
+@app.route("/current_tasks")
+def current_tasks():
+
+    return render_template("current_tasks.html")
+
+@app.route("/add_task") # Add a new task for a print / several prints
 def add_task():
-    return ""
-@app.route("update_project") # Update existing prints
+    return render_template("add_task.html")
+
+@app.route("/update_project") # Update existing prints
 def up_project():
-    return ""
-@app.route("update_task") # Update existing tasks
+    return render_template("index.html")
+
+@app.route("/update_task") # Update existing tasks
 def up_task():
-    return ""
-'''
+    return render_template("index.html")
+
+
 # My Tables
 
 class project(db.Model):
@@ -41,6 +69,7 @@ class project(db.Model):
     name = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(60), nullable = True)
     staatus = db.Column(db.Boolean, nullable=False, default=False)
+    connect = db.relationship('jointable', backref = 'projects')
 
 class task(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -48,11 +77,12 @@ class task(db.Model):
     details = db.Column(db.String(60), nullable = True)
     progress = db.Column(db.String(30), nullable = True, default = "Not Started") # Turn into drop down options?
     complete = db.Column(db.Boolean, nullable=False, default=False)
+    connect = db.relationship('jointable', backref = "tasks")
 
 class jointable(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, nullable = False)
-    task_id = db.Column(db.Integer,nullable = False)
+    project_id = db.Column('project_id', db.Integer, db.ForeignKey('project.id'))
+    task_id = db.Column('task_id',db.Integer,db.ForeignKey('task.id'))
 
 class projadd(FlaskForm):
     name = StringField("Project Name")
