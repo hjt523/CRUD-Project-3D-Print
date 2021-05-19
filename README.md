@@ -28,6 +28,10 @@ Could potentially merge Add project and Task into one add page with a dropdown o
 The code, HTML templates, and Testing code should be kept in seperate folders.
 ## Use Examples
 
+## Risk Assessments
+
+![Risk](https://github.com/hjt523/CRUD-Project-3D-Print/blob/7ad788446525e2889972538e2c12dd4bf051fe03/Riskassessment1.jpg)
+
 ## Code Flowcharts
 
 ## Code Documentation
