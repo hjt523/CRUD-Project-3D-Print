@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <title> Begin a new Project </title>
+    <h1>Enter the name of your new project! </h1>
+    <p> And optionally a description of said project </p>
+<div class="form">
+    <form method="POST" action=''>
+        {{form.hidden_tag()}}
+        {{form.name.label}} {{form.name}}
+        {{form.description.label}} {{form.description}}
+        <td><input type="submit" value = " Submit " ></input></td> 
+    </form>
+
+</div>
+
+    <br>
+
+    <form action= "{{url_for("current_projects")}}">
+        <td><input type="submit" value= "View Current Projects"></td>
+    </form>
+
+    <br>
+
+    <form action= "{{url_for("add_project")}}">
+        <td><input type="submit" value= "Add New Project!" ></input></td>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <a href=https://github.com/hjt523/CRUD-Project-3D-Print> For further documentation and access to the source code, visit my Github page!
+  </a>
+
+
+{% endblock body %}
