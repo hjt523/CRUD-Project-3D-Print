@@ -36,6 +36,8 @@ The code, HTML templates, and Testing code should be kept in seperate folders.
 
 ## Code Documentation
 
+- Implement Jenkins to deploy.
+
 ![kan](https://github.com/hjt523/CRUD-Project-3D-Print/blob/aab7f824869eede41c2efd28a33339d707773d87/KanbanBoard1.jpg)
 
 An example of the Kanban Boards used to plan this project.
