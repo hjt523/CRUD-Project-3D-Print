@@ -18,8 +18,12 @@ def index():
 @app.route("/current_projects") # A list of ongoing 3d Prints
 def current_projects():
     projects = project.query.all()
+    tasks = task.query.all()
+    connect = jointable.query.all()
+
     
-    return render_template("current_projects.html", projects = projects)
+    return render_template("current_projects.html", **locals())
+    #projects = projects, tasks=tasks,connect=connect)
 
 @app.route("/add_project", methods =["GET","POST"]) # Add a new 3d print
 def add_project():
@@ -29,7 +33,7 @@ def add_project():
         Task = form.name.data
         desc = form.description.data 
         if len(Task) == 0 :
-            error = "Please supply a task"
+            error = "Please supply a Project"
         else:
             nproj = project(name=Task,description = desc, staatus = False)
             db.session.add(nproj)
@@ -49,9 +53,27 @@ def current_tasks():
 
     return render_template("current_tasks.html")
 
-@app.route("/add_task") # Add a new task for a print / several prints
-def add_task():
-    return render_template("add_task.html")
+@app.route("/add_new_task/<int:projid>", methods = ["GET","POST"]) # Add a new task for a print / several prints
+def add_task(projid):
+    error = ""
+    form = taskadd()
+    if request.method == "POST":
+        Task = form.name.data
+        details = form.details.data 
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            ntask = task(name=Task,details = details)
+            db.session.add(ntask)
+            db.session.commit()
+            taskyidy = task.query.filter_by(name=Task).first()
+            connect = jointable(project_id = projid, task_id = taskyidy.id )
+            print( taskyidy.id )
+            print ( connect.project_id, connect.task_id)
+            db.session.add(connect)
+            db.session.commit()
+            return redirect(url_for('current_projects'))
+    return render_template("add_task.html", form = form, message = error)
 
 @app.route("/update_project") # Update existing prints
 def up_project():
@@ -60,6 +82,13 @@ def up_project():
 @app.route("/update_task") # Update existing tasks
 def up_task():
     return render_template("index.html")
+@app.route("/gluetables/<IDS>", methods = ["GET","POST"])
+def glue(IDS):
+    ID_list = IDS.split("_")
+    joint = jointable(project_id = ID_list[0], task_id = ID_list[1])
+    db.session.add(joint)
+    db.session.commit()
+    return render_template("current_projects.html")
 
 
 # My Tables
