@@ -11,12 +11,22 @@
     <table border="1" cellspacing="0" cellpadding="0" width="100%" align="center">
         <tr>
             <th> Project </th>
-            <th> ID </th>
+            <th> Description </th>
+            <th> Delete </th>
+            <th> Associated Task(s) </th>
         </tr>
         {% for user in projects %}
             <tr>
-                <td>{{ user.name}}</td>  
-                <td>{{ user.id}}</td>    
+                <td>{{ user.name}}</td>   
+                <td>{{ user.description}}</td>
+                
+                <form action= "{{url_for("deletep", projid=user.id)}}">
+                    <td><input type = "submit" value = "Delete Project"></input></td>
+                </form>
+
+                <br>
+
+
             </tr>
         {% endfor %}
     </table>

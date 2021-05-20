@@ -37,7 +37,7 @@ def add_project():
             return redirect(url_for('current_projects'))
     return render_template("add_project.html", form = form, message = error)
 @app.route("/deleteproj/<int:projid>")
-def delete(projid):
+def deletep(projid):
     todel = project.query.get(projid)
     db.session.delete(todel)
     db.session.commit()
