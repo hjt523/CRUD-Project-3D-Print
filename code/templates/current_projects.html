@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block body %}
+    <h1> Current Projects</h1>
+    <p> 
+        This is a list of current projects and their associated tasks! ( Ongoing) 
+    </p>
+    <table border="1" cellspacing="0" cellpadding="0" width="100%" align="center">
+        <tr>
+            <th> Project </th>
+            <th> Description </th>
+            <th> Delete </th>
+            <th> Associated Task(s) </th>
+        </tr>
+        {% for user in projects %}
+            <tr>
+                <td>{{ user.name}}</td>   
+                <td>{{ user.description}}</td>
+                <form action= "{{url_for('deletep',projid=user.id)}}">
+                    <td><input type = "submit" value = "Delete Project"></input></td>
+                </form>
+                <td>
+                    {% for twoser in connect %}
+                        {% if twoser.project_id == user.id %}
+                            <p> {{twoser.tasks.name}},  ( complete =  {{ twoser.tasks.complete}} )</p>
+                        {% endif %}
+                    {% endfor %}
+                    <form action = "{{url_for('add_task',projid=user.id)}}">
+                        <input type = "submit" value = "Add new task"></input>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <form action= "{{url_for("add_project")}}">
+        <td><input type="submit" value= "Add New Project!" ></input></td>
+    </form>
+    <br>
+    <form action= "{{url_for("current_tasks")}}">
+        <td><input type="submit" value= "View Current Tasks"></td>
+    </form>
+    <br>
+    <form action= "{{url_for("index")}}">
+        <td><input type="submit" value= "Return home"></td>
+    </form>
+    <br>
+    <br>
+    <br>
+    <a href=https://github.com/hjt523/CRUD-Project-3D-Print> For further documentation and access to the source code, visit my Github page!
+  </a>
+{% endblock body %}

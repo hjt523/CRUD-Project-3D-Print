@@ -28,9 +28,19 @@ Could potentially merge Add project and Task into one add page with a dropdown o
 The code, HTML templates, and Testing code should be kept in seperate folders.
 ## Use Examples
 
+## Risk Assessments
+
+![Risk](https://github.com/hjt523/CRUD-Project-3D-Print/blob/7ad788446525e2889972538e2c12dd4bf051fe03/Riskassessment1.jpg)
+
 ## Code Flowcharts
 
 ## Code Documentation
+
+- Implement Jenkins to deploy.
+
+![kan](https://github.com/hjt523/CRUD-Project-3D-Print/blob/aab7f824869eede41c2efd28a33339d707773d87/KanbanBoard1.jpg)
+
+An example of the Kanban Boards used to plan this project.
 
 ### Setup
 ! Todo, this should describe what to install / to run in order to get the app to work.

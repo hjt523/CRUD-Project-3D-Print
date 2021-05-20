@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <h1> New Tasks </h1>
+
+    <p> 
+        This page adds new tasks to a specified project.
+    </p>
+    <div class="form">
+        <form method="POST" action=''>
+            {{form.hidden_tag()}}
+            {{form.name.label}} {{form.name}}
+            {{form.details.label}} {{form.details}}
+            <td><input type="submit" value = " Submit " ></input></td> 
+        </form>
+    
+    </div>
+    <br>
+
+    <form action= "{{url_for("current_projects")}}">
+        <td><input type="submit" value= "View Current Projects"></td>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <a href=https://github.com/hjt523/CRUD-Project-3D-Print> For further documentation and access to the source code, visit my Github page!
+  </a>
+
+
+{% endblock body %}
