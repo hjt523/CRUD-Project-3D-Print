@@ -42,6 +42,9 @@ The code, HTML templates, and Testing code should be kept in seperate folders.
 
 An example of the Kanban Boards used to plan this project.
 
+![kan2](https://github.com/hjt523/CRUD-Project-3D-Print/blob/d6112dbf6dd9c39412bbaa448c642b4b84f77491/postsprint1.jpg)
+Kanban board post sprint
+
 ### Setup
 ! Todo, this should describe what to install / to run in order to get the app to work.
 ! If term permits, shell script to install necessary packages?
