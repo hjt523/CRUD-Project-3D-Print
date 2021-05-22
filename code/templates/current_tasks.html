@@ -2,20 +2,70 @@
 
 {% block body %}
 
-<h1>Current Projects</h1>
+<h1>Current Tasks</h1>
 <p> 
     This is a list of current Tasks and their associated Projects! ( Ongoing) 
 </p>
 
 <br>
+<table border="1" cellspacing="0" cellpadding="0" width="100%" align="center">
+    <tr>
+        <th> Task </th>
+        <th> Description </th>
+        <th> Progress </th>
+        <th> Finished? </th>
+        <th> Update Task </th>
+        <th> Delete </th>
+        <th> Associated Projects(s) </th>
+    </tr>
+    {% for user in tasks %}
+        <tr>
+            <td>{{ user.name}}</td>   
+            <td>{{ user.details}}</td>
+            <td>{{ user.progress}}</td>
+            {% if user.complete == True%}
+            <form action= "{{url_for("task_incomplete",taskid=user.id)}}">
+                <td style="background-color: rgb(14, 250, 6)">{{ user.complete}}
+                <input type="submit" value="Incomplete"></input></td>
+            </form>
+            {%else%}
+            <form action="{{ url_for("task_complete",taskid=user.id)}}">
+                <td style="background-color: rgb(255, 209, 5)">{{ user.complete}}
+                <input type="submit" value="Complete"></input></td>
+            </form>
+            {%endif%}
+            <form action= "{{url_for('up_task',taskid=user.id)}}">
+                <td><input type= "submit" value = "Update Task"></input> </td>
+            </form>
+            <form action= "{{url_for('deletet',taskid=user.id)}}">
+                <td style="background-color:rgb(161, 8, 8)"><input type = "submit" value = "Delete Task"></input></td>
+            </form>
+            <td>
+                {% for twoser in connect %}
+                    {% if twoser.task_id == user.id %}
+                        {% if twoser.projects.name != null%}
+                            <p> {{twoser.projects.name}}, ( complete =  {{ twoser.projects.staatus}} )</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <div class = "dropdown">
+                    <div class = "drowndown-content">
+                        {% for x in projects %}
 
-<form action= "{{url_for("add_task")}}">
-    <td><input type="submit" value= "Add New Task!" ></input></td>
-</form>
+                        <form action= "{{url_for('glue', projectid = x.id, taskid = user.id)}}">
+                            <input type = "submit" value = {{ x.name }}></input>
+                        </form>
+                        {% endfor %}
+                    </div>
 
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
 <br>
-<form action= "{{url_for("current_tasks")}}">
-    <td><input type="submit" value= "View Current Tasks"></td>
+<form action= "{{url_for("current_projects")}}">
+    <td><input type="submit" value= "View Current Projects"></td>
 </form>
 
 <br>
@@ -30,44 +80,6 @@
 <a href=https://github.com/hjt523/CRUD-Project-3D-Print> For further documentation and access to the source code, visit my Github page!
 </a>
     
-    <table border="1" cellspacing="0" cellpadding="0" width="100%" align="center">
-        <tr>
-            <th> Project </th>
-            <th> Complete? </th>
-            <th> Change Status </th>
-            <th> Ch-Ch-CHAAAANGES </th>
-            <th> Doom! </th>
-        </tr>
-        {% for user in tasks %}
-            <tr>
-            {% if user.Complete == True%}
-            <form action= "{{url_for("incomplete",todoid=user.id)}}">
-            
-                <td>{{ user.Task}}</td>  
-                <td>{{ user.id}}</td>
-                <td style="background-color: rgb(14, 250, 6)">{{ user.Complete}}</td>
-                <td><input type="submit" value="Incomplete"></input></td>
-            
-            </form>
-            {%else%}
-            <form action="{{ url_for("complete",todoid=user.id)}}">
-            
-                <td>{{ user.Task}}</td>  
-                <td>{{ user.id}}</td>
-                <td style="background-color: rgb(255, 209, 5)">{{ user.Complete}}</td>
-                <td><input type="submit" value="complete"></input></td>
-            {%endif%}
-            </form>
-            <form action= "{{url_for("update",todoid=user.id)}}">
-                <td><input type="submit" value= "Update"></td>
-            </form>
-            <form action= "{{url_for("delete",todoid=user.id)}}">
-                <td style="background-color:rgb(161, 8, 8)"><input type="submit" value= "Delete" ></input></td>
-            </form>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <br>
+ 
 
 {% endblock body%}

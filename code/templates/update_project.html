@@ -1,0 +1,19 @@
+{% extends 'layout.html'%}
+{% block body%} 
+
+<title>Update the Project</title>
+<h1>Update the Project! </h1>
+<div class="form">
+    <p> The original mission is over, the new one is :</p>
+    <form method="POST" action=''>
+        {{form.hidden_tag()}}
+        {{form.name.label}} {{form.name}}
+        {{form.description.label}} {{ form.description}}
+        <br>
+        <input type = "submit" value ="submit"></input>
+    </form>
+
+</div>
+
+
+{% endblock body%}
