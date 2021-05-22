@@ -12,7 +12,6 @@ db = SQLAlchemy(app) # create SQLALchemy object
 
 @app.route("/") # The first page people will see on my project
 def index():
-
     return render_template("index.html")
 
 @app.route("/current_projects") # A list of ongoing 3d Prints
@@ -20,8 +19,6 @@ def current_projects():
     projects = project.query.all()
     tasks = task.query.all()
     connect = jointable.query.all()
-
-    
     return render_template("current_projects.html", **locals())
     #projects = projects, tasks=tasks,connect=connect)
 
@@ -45,14 +42,27 @@ def deletep(projid):
     todel = project.query.get(projid)
     db.session.delete(todel)
     db.session.commit()
-    
+    projarray = jointable.query.filter_by(project_id =projid).all()
+    for proj in projarray:
+        db.session.delete(proj)
+        db.session.commit()
     return redirect( url_for('current_projects'))
-
+@app.route("/deletetask/<int:taskid>")
+def deletet(taskid):
+    todel = task.query.get(taskid)
+    db.session.delete(todel)
+    db.session.commit()
+    taskarray = jointable.query.filter_by(task_id =taskid).all()
+    for ta in taskarray:
+        db.session.delete(ta)
+        db.session.commit()
+    return redirect(url_for("current_tasks"))
 @app.route("/current_tasks")
 def current_tasks():
-
-    return render_template("current_tasks.html")
-
+    projects = project.query.all()
+    tasks = task.query.all()
+    connect = jointable.query.all()
+    return render_template("current_tasks.html", **locals())
 @app.route("/add_new_task/<int:projid>", methods = ["GET","POST"]) # Add a new task for a print / several prints
 def add_task(projid):
     error = ""
@@ -68,27 +78,76 @@ def add_task(projid):
             db.session.commit()
             taskyidy = task.query.filter_by(name=Task).first()
             connect = jointable(project_id = projid, task_id = taskyidy.id )
-            print( taskyidy.id )
-            print ( connect.project_id, connect.task_id)
             db.session.add(connect)
             db.session.commit()
             return redirect(url_for('current_projects'))
     return render_template("add_task.html", form = form, message = error)
+@app.route("/update_project/<int:projid>", methods = ["GET","POST"]) # Update existing prints
+def up_project(projid):
+    error = ""
+    form = projadd()
+    entry = project.query.get(projid)
+    if request.method == "POST":
+        Task = form.name.data
+        details = form.description.data
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            entry.name = Task
+            entry.description = details
+            db.session.commit()
+            return redirect(url_for('current_projects'))
+    return render_template('update_project.html', form=form, message=error)
+@app.route("/projectincomplete/<int:projid>")
+def project_incomplete(projid):
+    tasky = project.query.get(projid)
+    tasky.staatus = False
+    db.session.commit()
+    return redirect(url_for("current_projects"))
+@app.route("/projectcomplete/<int:projid>")
+def project_complete(projid):
+    projecty = project.query.get(projid)
+    projecty.staatus = True
+    db.session.commit()
+    return redirect(url_for("current_projects"))
+@app.route("/update_task/<int:taskid>", methods =["GET","POST"]) # Update existing tasks
+def up_task(taskid):
+    error = ""
+    form = taskadd()
+    entry = task.query.get(taskid)
+    if request.method == "POST":
+        Task = form.name.data
+        details = form.details.data
+        progress = form.progress.data
+        if len(Task) == 0 :
+            error = "Please supply a task"
+        else:
+            entry.name = Task
+            entry.details = details
+            entry.progress = progress
+            db.session.commit()
+            return redirect(url_for('current_tasks'))
+    return render_template('update_task.html', form=form, message=error)
+@app.route("/taskincomplete/<int:taskid>")
+def task_incomplete(taskid):
+    tasky = task.query.get(taskid)
+    tasky.complete = False
+    db.session.commit()
+    return redirect(url_for("current_tasks"))
 
-@app.route("/update_project") # Update existing prints
-def up_project():
-    return render_template("index.html")
+@app.route("/taskcomplete/<int:taskid>")
+def task_complete(taskid):
+    projecty = task.query.get(taskid)
+    projecty.complete = True
+    db.session.commit()
+    return redirect(url_for("current_tasks"))
 
-@app.route("/update_task") # Update existing tasks
-def up_task():
-    return render_template("index.html")
-@app.route("/gluetables/<IDS>", methods = ["GET","POST"])
-def glue(IDS):
-    ID_list = IDS.split("_")
-    joint = jointable(project_id = ID_list[0], task_id = ID_list[1])
+@app.route("/gluetables/<int:projectid>/<int:taskid>", methods = ["GET","POST"])
+def glue(projectid,taskid):
+    joint = jointable(project_id = projectid, task_id = taskid)
     db.session.add(joint)
     db.session.commit()
-    return render_template("current_projects.html")
+    return redirect(url_for("current_tasks"))
 
 
 # My Tables
@@ -120,7 +179,8 @@ class projadd(FlaskForm):
 
 class taskadd(FlaskForm):
     name = StringField("Task")
-    details = StringField("Project Details ( optional)")
+    details = StringField("Task Details ( optional)")
+    progress = StringField("Task Progress ")
     submit = SubmitField("Submit")
 
 if __name__=='__main__':
