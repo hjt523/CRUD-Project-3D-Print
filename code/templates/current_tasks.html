@@ -25,13 +25,13 @@
             <td>{{ user.progress}}</td>
             {% if user.complete == True%}
             <form action= "{{url_for("task_incomplete",taskid=user.id)}}">
-                <td style="background-color: rgb(14, 250, 6)">{{ user.complete}}
-                <input type="submit" value="Incomplete"></input></td>
+                <td style="background-color: rgb(14, 250, 6)"> Finished
+                <input type="submit" value="Unfinish"></input></td>
             </form>
             {%else%}
             <form action="{{ url_for("task_complete",taskid=user.id)}}">
-                <td style="background-color: rgb(255, 209, 5)">{{ user.complete}}
-                <input type="submit" value="Complete"></input></td>
+                <td style="background-color: rgb(255, 209, 5)"> Unfinished
+                <input type="submit" value="Finish"></input></td>
             </form>
             {%endif%}
             <form action= "{{url_for('up_task',taskid=user.id)}}">
