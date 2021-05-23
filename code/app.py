@@ -6,7 +6,7 @@ app = Flask(__name__) # create Flask object
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db" # Set the connection string to connect to the database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SECRET_KEY'] = 'YAAAASSSSSSSSPRINT3D'
+app.config['SECRET_KEY'] =
 
 db = SQLAlchemy(app) # create SQLALchemy object
 
