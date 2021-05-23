@@ -12,16 +12,24 @@ There are a lot of tasks in 3D printing that when broken down for a individual p
 With respect to Project_status and Task_status, these have the options of ongoing or complete as options as there's little point in having string input for something that can be one or the other.
 Task_details is optional because naming a task " clean the nozzle" is self evident, but when running say a extruder temperature test on the PLA filament, its useful to add details like temperature range currently considered, because you will often start off low, then high, and split the difference around the manufacturers quoted temp ranges due to things like moisture and room temperature affecting the behaviour of the material.
 
+## Design
+
 In terms of design, I want the index page to Welcome people to the site, explain to them how the site works / maybe show some examples, with some buttons to send people to a list of current projects with their active tasks, to the list of Tasks in more detail, and directly to the add project page.
 The add project page should send them to the current projects page, where they can either add new tasks and assign them to that project, or ammend existing tasks to also be assigned to the new project where applicable.
 
-SO in terms of design, there are 6 html pages:
+SO in terms of design, there are 8 html pages:
 - Index
 - Add Project
-- View / Update Current Projects
+- View Current Projects
+- Update Current Tasks
 - Add Task
 - View Current Tasks
 - Update Current Tasks
+- layout
+
+Overall, the plan is for the website to follow this Flow:
+
+
 
 Could potentially merge Add project and Task into one add page with a dropdown option to which it adds to.
 
