@@ -98,13 +98,13 @@ def up_project(projid):
             db.session.commit()
             return redirect(url_for('current_projects'))
     return render_template('update_project.html', form=form, message=error)
-@app.route("/projectincomplete/<int:projid>")
+@app.route("/projectincomplete/<int:projid>" , methods = ["GET","POST"])
 def project_incomplete(projid):
     tasky = project.query.get(projid)
     tasky.staatus = False
     db.session.commit()
     return redirect(url_for("current_projects"))
-@app.route("/projectcomplete/<int:projid>")
+@app.route("/projectcomplete/<int:projid>" , methods = ["GET","POST"])
 def project_complete(projid):
     projecty = project.query.get(projid)
     projecty.staatus = True
@@ -128,14 +128,14 @@ def up_task(taskid):
             db.session.commit()
             return redirect(url_for('current_tasks'))
     return render_template('update_task.html', form=form, message=error)
-@app.route("/taskincomplete/<int:taskid>")
+@app.route("/taskincomplete/<int:taskid>", methods =["GET","POST"])
 def task_incomplete(taskid):
     tasky = task.query.get(taskid)
     tasky.complete = False
     db.session.commit()
     return redirect(url_for("current_tasks"))
 
-@app.route("/taskcomplete/<int:taskid>")
+@app.route("/taskcomplete/<int:taskid>", methods = ["GET", "POST"])
 def task_complete(taskid):
     projecty = task.query.get(taskid)
     projecty.complete = True
