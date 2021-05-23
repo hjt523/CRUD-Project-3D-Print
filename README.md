@@ -29,7 +29,7 @@ SO in terms of design, there are 8 html pages:
 
 Overall, the plan is for the website to follow this Flow:
 
-
+![sitemodel](https://github.com/hjt523/CRUD-Project-3D-Print/blob/586f41ccb332515bd2f25121a6aa8df461c11e1b/Site%20Map.jpeg)
 
 Could potentially merge Add project and Task into one add page with a dropdown option to which it adds to.
 
