@@ -179,6 +179,11 @@ if did not work would have caused one of the app routes to not give a valid resp
 - sql
 - googlecloud or AWS sql for database hosting ( alternatively host locally with sqlite)
 
+## Proof of Agile Work Practice wrt Pushing:
+
+# Before Final Final Push
+![Agile2](https://user-images.githubusercontent.com/81659044/119283296-760fcb80-bc34-11eb-9b1a-d71e8da96e65.png)
+![Agile](https://user-images.githubusercontent.com/81659044/119283301-77d98f00-bc34-11eb-887f-a656b58ff506.png)
 
 
 
