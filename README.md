@@ -165,6 +165,9 @@ a task / project that doesn't exist gives a error code? Though at the time of wr
 
 In the case of adding Projects, I also asserted that the response data contain the description added etc, to make sure the add_project form had full functionality.
 
+Overall I made sure to test every App route, but to function these also called our class objects like the addproject form, so i didnt see fit to test things individually which
+if did not work would have caused one of the app routes to not give a valid response code / not lead to the new data being present in the response. 
+
 
 ## Dependencies/ Languages
 - Python3
